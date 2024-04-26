@@ -15,7 +15,7 @@ import "reactflow/dist/style.css";
 const initialNodes: Node[] = [
   {
     id: "1",
-    position: { x: 0, y: 0 },
+    position: { x: 100, y: 400 },
     data: { label: "node 1" },
   },
   {
