@@ -10,6 +10,7 @@ import ReactFlow, {
   OnEdgesChange,
   OnConnect,
   addEdge,
+  MiniMap,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -78,6 +79,7 @@ const ReactFlowRecap = () => {
       >
         <Background />
         <Controls />
+        <MiniMap nodeStrokeWidth={3} nodeStrokeColor={"blue"} />
       </ReactFlow>
     </div>
   );

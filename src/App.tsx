@@ -1,5 +1,5 @@
 import "./App.css";
-import FlowDiagram from "./components/flow/Flow";
+// import FlowDiagram from "./components/flow/Flow";
 import ReactFlowRecap from "./components/flow/ReactFlowRecap";
 
 function App() {
