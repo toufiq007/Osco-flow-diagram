@@ -81,7 +81,7 @@ const CustomReactFlow = () => {
   );
 
   return (
-    <div style={{ width: "100%", height: "97vh" }}>
+    <div style={{ width: "100%", height: "calc(100vh - 60px)" }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
