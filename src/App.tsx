@@ -1,5 +1,6 @@
 import "./App.css";
-import CustomReactFlow from "./components/customNode/ReactFlow";
+import CustomReactFlow from "./components/customEdge/ReactFlow";
+// import CustomReactFlow from "./components/customNode/ReactFlow";
 // import FlowDiagram from "./components/flow/Flow";
 // import ReactFlowRecap from "./components/flow/ReactFlowRecap";
 
