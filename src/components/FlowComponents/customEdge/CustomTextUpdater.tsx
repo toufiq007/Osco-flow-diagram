@@ -26,6 +26,7 @@ const CustomTextUpdater = () => {
           name="text"
           onChange={(e) => setChanges(e.target.value)}
           className="nodrag"
+          style={{ border: "1px solid #000" }}
         />
         <button
           style={{

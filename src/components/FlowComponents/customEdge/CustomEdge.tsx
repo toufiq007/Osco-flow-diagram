@@ -36,6 +36,8 @@ export default function CustomEdge({
           style={{
             position: "absolute",
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+            background: "#B8CEFF",
+            padding:"4px 9px",
             pointerEvents: "all",
           }}
           className="nodrag nopan"
@@ -43,7 +45,7 @@ export default function CustomEdge({
             setEdges((es) => es.filter((e) => e.id !== id));
           }}
         >
-          delete
+          remove
         </button>
       </EdgeLabelRenderer>
     </>
