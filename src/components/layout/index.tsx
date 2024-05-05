@@ -20,42 +20,49 @@ import CustomTextUpdater from "../FlowComponents/customEdge/CustomTextUpdater";
 import CustomEdge from "../FlowComponents/customEdge/CustomEdge";
 import { useCallback, useRef, useState } from "react";
 import "reactflow/dist/style.css";
-import CircleNode from "../FlowComponents/nodes/CircleNode";
+
 import InputNode from "../FlowComponents/nodes/InputNode";
 import DecisionNode from "../FlowComponents/nodes/DecisionNode";
 import NodeExecution from "../FlowComponents/nodes/NodeExecution";
 import OutputNode from "../FlowComponents/nodes/OutputNode";
+import CircleNode from "../FlowComponents/nodes/CircleNode";
 
 const bgColor = { background: "#282c34" };
 const nodeType = {
   textUpdateNode: CustomTextUpdater,
   circleNode: CircleNode,
-  inputNode: InputNode,
-  decisionNode: DecisionNode,
-  nodeExecution: NodeExecution,
-  outputNode: OutputNode,
+  customInputNode: InputNode,
+  customDecisionNode: DecisionNode,
+  customFunctionNode: NodeExecution,
+  customOutputNode: OutputNode,
 };
 
 const initialNodes: Node[] = [
-  {
-    id: "1",
-    type: "textUpdateNode",
-    data: { value: "node 1" },
-    position: { x: 658, y: 358 },
-  },
+  // {
+  //   id: "1",
+  //   type: "textUpdateNode",
+  //   data: { value: "node 1" },
+  //   position: { x: 658, y: 358 },
+  // },
 
-  {
-    id: "2",
-    type: "textUpdateNode",
-    data: { value: "node 2" },
-    position: { x: 444, y: 118 },
-  },
-  {
-    id: "3",
-    type: "textUpdateNode",
-    data: { value: "node 3" },
-    position: { x: 232, y: 366 },
-  },
+  // {
+  //   id: "2",
+  //   type: "textUpdateNode",
+  //   data: { value: "node 2" },
+  //   position: { x: 444, y: 118 },
+  // },
+  // {
+  //   id: "3",
+  //   type: "textUpdateNode",
+  //   data: { value: "node 3" },
+  //   position: { x: 232, y: 366 },
+  // },
+  // {
+  //   id: "4",
+  //   type: "circleNode",
+  //   data: { label: "circle" },
+  //   position: { x: 250, y: 5 },
+  // },
 ];
 const initialEdges: Edge[] = [
   {
@@ -110,10 +117,6 @@ const ReactFlowLayout = () => {
       if (typeof type === "undefined" || !type) {
         return;
       }
-
-      // reactFlowInstance.project was renamed to reactFlowInstance.screenToFlowPosition
-      // and you don't need to subtract the reactFlowBounds.left/top anymore
-      // details: https://reactflow.dev/whats-new/2023-11-10
       const position = reactFlowInstance?.screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
@@ -124,7 +127,6 @@ const ReactFlowLayout = () => {
         position,
         data: { label: `${type} node` },
       };
-
       setNodes((nds) => nds.concat(newNode));
     },
     [reactFlowInstance]
