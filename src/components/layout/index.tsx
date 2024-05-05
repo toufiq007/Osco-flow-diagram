@@ -14,6 +14,7 @@ import ReactFlow, {
   OnConnect,
   addEdge,
   ReactFlowInstance,
+  XYPosition,
 } from "reactflow";
 
 import CustomTextUpdater from "../FlowComponents/customEdge/CustomTextUpdater";
@@ -44,7 +45,6 @@ const initialNodes: Node[] = [
   //   data: { value: "node 1" },
   //   position: { x: 658, y: 358 },
   // },
-
   // {
   //   id: "2",
   //   type: "textUpdateNode",
@@ -65,21 +65,30 @@ const initialNodes: Node[] = [
   // },
 ];
 const initialEdges: Edge[] = [
-  {
-    id: "2-1",
-    type: "custom-edge",
-    source: "2",
-    target: "1",
-  },
-  {
-    id: "2-3",
-    type: "custom-edge",
-    source: "2",
-    target: "3",
-  },
+  // {
+  //   id: "2-1",
+  //   type: "custom-edge",
+  //   source: "2",
+  //   target: "1",
+  //   animated: true,
+  // },
+  // {
+  //   id: "2-3",
+  //   type: "custom-edge",
+  //   source: "2",
+  //   target: "3",
+  //   animated: true,
+  // },
 ];
+// set our default edge options
+const edgeOptions = {
+  animated: true,
+};
 
+// setup our edge Type
 const edgeType = { "custom-edge": CustomEdge };
+
+// for creating new node with id
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
@@ -89,8 +98,6 @@ const ReactFlowLayout = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance | null>(null);
-
-  // console.log({ nodes, edges });
 
   const onConnect: OnConnect = useCallback(
     (params) => {
@@ -121,10 +128,11 @@ const ReactFlowLayout = () => {
         x: event.clientX,
         y: event.clientY,
       });
-      const newNode = {
+      const defaultPosition: XYPosition = { x: 0, y: 0 };
+      const newNode: Node = {
         id: getId(),
         type,
-        position,
+        position: position ?? defaultPosition,
         data: { label: `${type} node` },
       };
       setNodes((nds) => nds.concat(newNode));
@@ -155,6 +163,7 @@ const ReactFlowLayout = () => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             style={bgColor}
+            defaultEdgeOptions={edgeOptions}
             fitView
           >
             <Background />
