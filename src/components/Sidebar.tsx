@@ -24,8 +24,12 @@ const Sidebar = () => {
     e.dataTransfer.effectAllowed = "move";
   };
 
-  const [items, setItems] = useState(flowData);
-
+  const [filterArray, setFilterArray] = useState<IFlowData[]>(flowData);
+  const handleFilter = (id: string) => {
+    const newFilterArray = flowData.filter((item: IFlowData) => item.id === id);
+    setFilterArray(newFilterArray);
+  };
+  console.log(filterArray);
   return (
     <div
       style={{
@@ -34,11 +38,15 @@ const Sidebar = () => {
       }}
     >
       <h2 className="text-center text-2xl py-4 ">Click to filter your nodes</h2>
-      <FlowFilter items={items} setItems={setItems} />
+      <FlowFilter
+        items={flowData}
+        setFilterArray={setFilterArray}
+        handleFilter={handleFilter}
+      />
       <div className="my-4">
         <hr />
         <h2 className="text-center text-2xl py-4">Drag your node</h2>
-        {flowData.map((data: IFlowData, index: number) => {
+        {filterArray.map((data: IFlowData, index: number) => {
           return (
             <div
               key={index}
