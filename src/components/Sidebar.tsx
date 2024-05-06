@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { flowData } from "../assets/flowdata/flowData";
 import { IFlowData } from "../types/flowData";
+import FlowFilter from "./FlowComponents/FlowFilter";
 
 type onDragProps = {
   onDragStart: (
@@ -9,7 +11,6 @@ type onDragProps = {
     color?: string
   ) => void;
 };
-
 const Sidebar = () => {
   const onDragStart: onDragProps["onDragStart"] = (
     e,
@@ -22,15 +23,21 @@ const Sidebar = () => {
     e.dataTransfer.setData("application/reactflow", text as string);
     e.dataTransfer.effectAllowed = "move";
   };
+
+  const [items, setItems] = useState(flowData);
+
   return (
     <div
       style={{
         width: "30%",
         height: "calc(100vh - 60px)",
       }}
-      className=""
     >
-      <div>
+      <h2 className="text-center text-2xl py-4 ">Click to filter your nodes</h2>
+      <FlowFilter items={items} setItems={setItems} />
+      <div className="my-4">
+        <hr />
+        <h2 className="text-center text-2xl py-4">Drag your node</h2>
         {flowData.map((data: IFlowData, index: number) => {
           return (
             <div
