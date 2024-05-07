@@ -2,6 +2,7 @@ import { useState } from "react";
 import { flowData } from "../assets/flowdata/flowData";
 import { IFlowData } from "../types/flowData";
 import FlowFilter from "./FlowComponents/FlowFilter";
+import { Tooltip } from "@mui/material";
 
 type onDragProps = {
   onDragStart: (
@@ -48,7 +49,8 @@ const Sidebar = () => {
         <h2 className="text-center text-2xl py-4">Drag your node</h2>
         {filterArray.map((data: IFlowData, index: number) => {
           return (
-            <div
+            <Tooltip title={data.title} placement="top">
+              <div
               key={index}
               className={data.style}
               draggable
@@ -58,6 +60,7 @@ const Sidebar = () => {
             >
               <div className="text-center">{data.text}</div>
             </div>
+            </Tooltip>
           );
         })}
       </div>
