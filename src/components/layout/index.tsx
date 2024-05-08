@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactFlow, {
   Background,
   Controls,
@@ -27,6 +28,7 @@ import DecisionNode from "../FlowComponents/nodes/DecisionNode";
 import NodeExecution from "../FlowComponents/nodes/NodeExecution";
 import OutputNode from "../FlowComponents/nodes/OutputNode";
 import CircleNode from "../FlowComponents/nodes/CircleNode";
+import { Box, Input, TextField } from "@mui/material";
 
 const bgColor = { background: "#282c34" };
 const nodeType = {
@@ -98,6 +100,9 @@ const ReactFlowLayout = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>(initialEdges);
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance | null>(null);
+  const [openEditor, setOpenEditor] = useState(false);
+  const [name, setName] = useState("null");
+  const [color, setColor] = useState("null");
 
   const onConnect: OnConnect = useCallback(
     (params) => {
@@ -140,6 +145,14 @@ const ReactFlowLayout = () => {
     [reactFlowInstance]
   );
 
+  // handle function for click the node
+  const onClickNode = (event: any, node: Node) => {
+    event.preventDefault();
+    setOpenEditor(true);
+    console.log({ node }, "from mouse click the node");
+    setName(node.data.label);
+  };
+
   return (
     <div
       className="flex"
@@ -150,6 +163,7 @@ const ReactFlowLayout = () => {
           className="reactflow-wrapper"
           ref={reactFlowWrapper}
           style={{ width: "100%", height: "calc(100vh - 50px)" }}
+          onClick={() => setOpenEditor(true)}
         >
           <ReactFlow
             nodes={nodes}
@@ -164,10 +178,74 @@ const ReactFlowLayout = () => {
             onDragOver={onDragOver}
             style={bgColor}
             defaultEdgeOptions={edgeOptions}
+            onNodeClick={onClickNode}
             fitView
           >
             <Background />
             <Controls />
+            {openEditor && (
+              <div
+                style={{
+                  background: "#edf2ff",
+                  width: "",
+                  height: "500px",
+                  position: "absolute",
+                  top: "100px",
+                  right: "20px",
+                  zIndex: "1000",
+                }}
+              >
+                <Box>
+                  <Box
+                    sx={{
+                      marginTop: "20px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "20px",
+                      padding: "1rem",
+                    }}
+                  >
+                    <TextField
+                      label="name"
+                      value={name}
+                      size="small"
+                    ></TextField>
+                    <TextField
+                      label="background"
+                      value={name}
+                      size="small"
+                    ></TextField>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "20px",
+                      padding: "1rem",
+                    }}
+                  >
+                    <TextField label="width" size="small"></TextField>
+                    <TextField label="height" size="small"></TextField>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: "20px",
+                      padding: "1rem",
+                    }}
+                  >
+                    <p>Details:</p>
+                  </Box>
+                </Box>
+              </div>
+            )}
+
             <MiniMap nodeStrokeWidth={3} />
           </ReactFlow>
         </div>
