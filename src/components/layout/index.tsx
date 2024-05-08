@@ -103,6 +103,8 @@ const ReactFlowLayout = () => {
   const [openEditor, setOpenEditor] = useState(false);
   const [name, setName] = useState("null");
   const [color, setColor] = useState("null");
+  const [height, setHeight] = useState<number | null | undefined>(null);
+  const [width, setWidth] = useState<number | null | undefined>(null);
 
   const onConnect: OnConnect = useCallback(
     (params) => {
@@ -151,6 +153,8 @@ const ReactFlowLayout = () => {
     setOpenEditor(true);
     console.log({ node }, "from mouse click the node");
     setName(node.data.label);
+    setHeight(node.position.y);
+    setWidth(node.position.x);
   };
 
   return (
@@ -227,8 +231,18 @@ const ReactFlowLayout = () => {
                       padding: "1rem",
                     }}
                   >
-                    <TextField label="width" size="small"></TextField>
-                    <TextField label="height" size="small"></TextField>
+                    <TextField
+                      onChange={(e) => setWidth(Number(e.target.value))}
+                      label="width"
+                      value={width}
+                      size="small"
+                    ></TextField>
+                    <TextField
+                      onChange={(e) => setHeight(Number(e.target.value))}
+                      label="height"
+                      value={height}
+                      size="small"
+                    ></TextField>
                   </Box>
 
                   <Box
